@@ -51,4 +51,13 @@ if __name__ == '__main__':
 
     import sys
     pcfg = PCFG.from_file(sys.argv[1])
-    print pcfg.random_sent()
+    num_of_sentences = 1
+    if len(sys.argv) > 2:
+        if sys.argv[2] == '-n':
+            try:
+                temp = int(sys.argv[3])
+                num_of_sentences = temp
+            except ValueError:
+                num_of_sentences = 1
+    for i in range(0, num_of_sentences):
+        print pcfg.random_sent()
