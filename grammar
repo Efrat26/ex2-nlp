@@ -19,7 +19,7 @@
 
 # Rules for creating full sentences.
 
-1	ROOT	S .
+10	ROOT	S .
 1	ROOT	S !
 1	ROOT	is it true that S ?     # mixing terminals and nonterminals is ok.
 
@@ -31,13 +31,19 @@
 #    Det = determiner (sometimes called "article")
 #    Prep = preposition
 #    Adj = adjective
+#    Pn = proper noun
+#    Vt - terminus verbs (verbs that get no argument after them)
+#    Aadj - an adjective for an adjective (very very perplexed)
 
-1	S	NP VP
+10	S	NP VP
+1   S   NP Vt
 1	VP	Verb NP
-1	NP	Det Noun
+10	NP	Det Noun
 1	NP	NP PP
+1   NP  Pn
 1	PP	Prep NP
-1	Noun	Adj Noun
+1	Noun Adj Noun
+10	Noun Aadj Adj Noun
 
 # Vocabulary.  Your program can see that "ate" is a terminal
 # symbol because there exists no rule for rewriting it.
@@ -45,28 +51,37 @@
 # terminals, like "chief of staff") is called a "preterminal."  Notice
 # that a preterminal is a special kind of nonterminal.
 
-1	Verb	ate
+10	Verb	ate
 1	Verb	wanted
 1	Verb	kissed
 1	Verb	understood
 1	Verb	pickled
 
-1	Det	the
-1	Det	a
+10	Det	the
+10	Det	a
 1	Det	every
 
-1	Noun	president
-1	Noun	sandwich
+20	Noun	president
+30	Noun	sandwich
 1	Noun	pickle
 1	Noun	chief of staff
 1	Noun	floor
 
 1	Adj	fine
 1	Adj	delicious
-1	Adj	perplexed
+10	Adj	perplexed
 1	Adj	pickled
+#10  Adj Aadj Adj
 
-1	Prep	with
-1	Prep	on
-1	Prep	under
-1	Prep	in
+1	Prep with
+1	Prep on
+1	Prep under
+1	Prep in
+
+1   Pn    Sally
+
+1   Vt  sighed
+
+1   Aadj very
+1   Aadj Aadj Aadj
+#1   Aadj Aadj
