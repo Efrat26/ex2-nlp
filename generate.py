@@ -59,5 +59,8 @@ if __name__ == '__main__':
                 num_of_sentences = temp
             except ValueError:
                 num_of_sentences = 1
+    if len(sys.argv) == 5:
+        if sys.argv[4] == '-t':
+            print 'yay'
     for i in range(0, num_of_sentences):
         print pcfg.random_sent()
