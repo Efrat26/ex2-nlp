@@ -26,7 +26,12 @@ class PCFG(object):
         return grammar
 
     def is_terminal(self, symbol): return symbol not in self._rules
-
+    '''
+    for part 3:
+    if we shouldn't print the tree then we only need to return the output as is, without additions
+    to the beginning\end.
+    otherwise we should add brackets to the beginning and the end
+    '''
     def gen(self, symbol, print_tree):
         if self.is_terminal(symbol):
             begin = ""
@@ -76,14 +81,18 @@ if __name__ == '__main__':
     if len(sys.argv) == 5:
         if sys.argv[4] == '-t':
             print_tree = True
+    if print_tree:
+        f_out = open("part3.gen", 'w')
     for i in range(0, num_of_sentences):
         result = pcfg.random_sent(print_tree)
         print result
-        original_sentence = ""
-        sentence = result.replace("(", "")
-        sentence = sentence.replace(")", "")
-        splitted_sentece = sentence.split(" ")
-        for symbol in splitted_sentece:
-            if pcfg.is_terminal(symbol):
-                original_sentence += symbol + " "
-        print "original sentence is:\n" + original_sentence
+        f_out.write(result + '\n')
+        if print_tree:
+            original_sentence = ""
+            sentence = result.replace("(", "")
+            sentence = sentence.replace(")", "")
+            splitted_sentece = sentence.split(" ")
+            for symbol in splitted_sentece:
+                if pcfg.is_terminal(symbol):
+                    original_sentence += symbol + " "
+            print "original sentence is:\n" + original_sentence
