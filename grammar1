@@ -1,0 +1,94 @@
+# Symbols in the grammar are case-sensitive.
+#
+# This grammar uses a convention that
+#    - terminals are lowercase          (president)
+#    - preterminals are capitalized     (Noun)
+#    - other nonterminals are all-caps  (NP)
+#
+# This convention just makes grammars more readable to humans.  Thus:
+#
+#    - When *you* are writing grammars, you should
+#      follow this convention unless you have a good reason not to.
+#
+#    - But the  *program* should still work with grammars that don't
+#      follow this convention.  So how can the program reliably tell
+#      the difference between terminal and nonterminal symbols?  If
+#      there is at least one rule for rewriting a symbol, then that
+#      symbol is a nonterminal and should be rewritten.
+#######################
+
+# Rules for creating full sentences.
+
+
+# GENERAL NOTE: we know the weights depends on the context but in general we thought those are the frequencies
+# (if the text is about pickles then it is likely we'll have pickled as adjective/verb but in general
+# we though they are less used)
+
+
+# we thought that natural sentences are more likely to end with period and about equal to be a question
+# or to end with exclamation mark
+10	ROOT	S .
+5	ROOT	S !
+5	ROOT	is it true that S ?     # mixing terminals and nonterminals is ok.
+
+# The basic grammar rules.  Here's what the abbreviations stand for:
+#    S  = sentence
+#    NP = noun phrase
+#    VP = verb phrase
+#    PP = prepositional phrase
+#    Det = determiner (sometimes called "article")
+#    Prep = preposition
+#    Adj = adjective
+
+1	S	NP VP
+1	VP	Verb NP
+# we gave the rule: NP	Det Noun more weight to make the sentences shorter.
+5	NP	Det Noun
+1	NP	NP PP
+1	PP	Prep NP
+# we gave the rule: Noun	Adj Noun more weight to have more sentences with adjectives before nouns.
+5	Noun	Adj Noun
+
+# Vocabulary.  Your program can see that "ate" is a terminal
+# symbol because there exists no rule for rewriting it.
+# Any symbol that can rewrite as a terminal (or a string of
+# terminals, like "chief of staff") is called a "preterminal."  Notice
+# that a preterminal is a special kind of nonterminal.
+
+# we changed the weighs of the verbs because we thought that natural sentences have more often the verbs: wanted and
+# understood, then ate and kissed and the least pickled.
+3	Verb	ate
+5	Verb	wanted
+2	Verb	kissed
+4	Verb	understood
+1	Verb	pickled
+
+# we changed the weighs of the determiner because we thought that natural sentences have more often 'the' as article, and
+# after that 'a' and after that 'every' as article
+4	Det	the
+2	Det	a
+1	Det	every
+
+
+# we changed the weighs of the nouns because we thought that natural sentences have more often the words president and
+# chief of staff and the least pickle
+3	Noun	president
+2	Noun	sandwich
+1	Noun	pickle
+3	Noun	chief of staff
+2	Noun	floor
+
+# we changed the weighs of the adjectives because we thought that natural sentences have more often the fine, delicious
+# and perplexed as adjectives than pickled
+3	Adj	fine
+2	Adj	delicious
+2	Adj	perplexed
+1	Adj	pickled
+
+
+# we changed the weighs of the prepositions because we thought that natural sentences have more often the with, on and in
+# as prepositions than under
+3	Prep	with
+2	Prep	on
+1	Prep	under
+2	Prep	in
