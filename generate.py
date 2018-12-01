@@ -5,7 +5,6 @@ class PCFG(object):
     def __init__(self):
         self._rules = defaultdict(list)
         self._sums = defaultdict(float)
-        self.tree_string = ''
 
     def add_rule(self, lhs, rhs, weight):
         assert(isinstance(lhs, str))
@@ -28,19 +27,23 @@ class PCFG(object):
 
     def is_terminal(self, symbol): return symbol not in self._rules
 
-    def null_tree_string(self): self.tree_string = ''
-
-    def gen(self, symbol):
+    def gen(self, symbol, print_tree):
         if self.is_terminal(symbol):
-            self.tree_string += symbol + ')'
-            return symbol
+            begin = ""
+            if print_tree:
+                begin = " "
+            return begin + symbol
         else:
             expansion = self.random_expansion(symbol)
-            result = " ".join(self.gen(s) for s in expansion)
-            return result
+            begin = ""
+            end = ""
+            if print_tree:
+                begin = "(" + symbol + " "
+                end = ")"
+            return begin + " ".join(self.gen(s, print_tree) for s in expansion) + end
 
-    def random_sent(self):
-        return [self.tree_string, self.gen("ROOT")]
+    def random_sent(self, print_tree):
+        return self.gen("ROOT", print_tree)
 
     def random_expansion(self, symbol):
         """
@@ -50,9 +53,7 @@ class PCFG(object):
         for r,w in self._rules[symbol]:
             p = p - w
             if p < 0:
-                #self.tree_string += '(' + r + ' '
                 return r
-        #self.tree_string += '(' + r + ' '
         return r
 
 
@@ -69,11 +70,20 @@ if __name__ == '__main__':
                 num_of_sentences = temp
             except ValueError:
                 num_of_sentences = 1
+
+        elif sys.argv[2] == '-t':
+            print_tree = True
     if len(sys.argv) == 5:
         if sys.argv[4] == '-t':
             print_tree = True
     for i in range(0, num_of_sentences):
-        pcfg.null_tree_string()
-        print pcfg.random_sent()[1]
-        if print_tree:
-            print pcfg.random_sent()[0]
+        result = pcfg.random_sent(print_tree)
+        print result
+        original_sentence = ""
+        sentence = result.replace("(", "")
+        sentence = sentence.replace(")", "")
+        splitted_sentece = sentence.split(" ")
+        for symbol in splitted_sentece:
+            if pcfg.is_terminal(symbol):
+                original_sentence += symbol + " "
+        print "original sentence is:\n" + original_sentence
