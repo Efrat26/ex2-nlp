@@ -1,0 +1,5 @@
+(ROOT (S (NP (Pn  Sally)) (Is  is) (Adj  delicious))  !)
+(ROOT  is  it  true  that (S (NP (Pn  it)) (Is  is) (Adj (Nom  very) (Adj  perplexed)))  ?)
+(ROOT (S (NP (Pn  Sally)) (Is  is) (Adj (Nom  very) (Adj (Nom  very) (Adj (Nom  very) (Adj  perplexed)))))  !)
+(ROOT (S (NP (Pn  it)) (Is  is) (Adj (Nom  very) (Adj  perplexed)))  .)
+(ROOT  is  it  true  that (S (NP (Det  the) (Noun  desk)) (Is  is) (Adj  delicious))  ?)
