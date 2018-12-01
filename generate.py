@@ -5,6 +5,7 @@ class PCFG(object):
     def __init__(self):
         self._rules = defaultdict(list)
         self._sums = defaultdict(float)
+        self.tree_string = ''
 
     def add_rule(self, lhs, rhs, weight):
         assert(isinstance(lhs, str))
@@ -27,14 +28,19 @@ class PCFG(object):
 
     def is_terminal(self, symbol): return symbol not in self._rules
 
+    def null_tree_string(self): self.tree_string = ''
+
     def gen(self, symbol):
-        if self.is_terminal(symbol): return symbol
+        if self.is_terminal(symbol):
+            self.tree_string += symbol + ')'
+            return symbol
         else:
             expansion = self.random_expansion(symbol)
-            return " ".join(self.gen(s) for s in expansion)
+            result = " ".join(self.gen(s) for s in expansion)
+            return result
 
     def random_sent(self):
-        return self.gen("ROOT")
+        return [self.tree_string, self.gen("ROOT")]
 
     def random_expansion(self, symbol):
         """
@@ -43,7 +49,10 @@ class PCFG(object):
         p = random.random() * self._sums[symbol]
         for r,w in self._rules[symbol]:
             p = p - w
-            if p < 0: return r
+            if p < 0:
+                #self.tree_string += '(' + r + ' '
+                return r
+        #self.tree_string += '(' + r + ' '
         return r
 
 
@@ -52,6 +61,7 @@ if __name__ == '__main__':
     import sys
     pcfg = PCFG.from_file(sys.argv[1])
     num_of_sentences = 1
+    print_tree = False
     if len(sys.argv) > 2:
         if sys.argv[2] == '-n':
             try:
@@ -61,6 +71,9 @@ if __name__ == '__main__':
                 num_of_sentences = 1
     if len(sys.argv) == 5:
         if sys.argv[4] == '-t':
-            print 'yay'
+            print_tree = True
     for i in range(0, num_of_sentences):
-        print pcfg.random_sent()
+        pcfg.null_tree_string()
+        print pcfg.random_sent()[1]
+        if print_tree:
+            print pcfg.random_sent()[0]
