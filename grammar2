@@ -39,29 +39,34 @@
 #    Vt = Transitive verb
 #    Nom = nominalization (for example very)
 #    Vp = verbs that are followed by a PP
-#    Is = is
+#    VtDontAcceptClause = transitive verbs that don't accept clause
+#    PPCoeffiecient = present progressive coefficients
 #    Transitiveppv = transitive verbs in present prograssive tense
+#    IntransitivePP = intransitive verbs in present prograssive tense
 #    ViClausal = Intransitive verbs verbs that get a clausal statement after them (like 'thought' but not 'sighed')
+#    VtAcceptAdjAsVerb = Transitive verbs that accepts an adjective (for example: sally is lazy)
 
 2	S	NP VP
 1   S   S Cord S #sentence b
-3   S   NP Is Adj #sentence i
-1   S   NP Is Transitiveppv NP #sentence h
+1   S   NP PPCoeffiecient Transitiveppv NP #sentence i
+1   S   NP PPCoeffiecient IntransitivePP #sentence i
 1   VP  VP Cord VP #sentence b
 1	VP	Verb NP
 1   VP  Vi #sentence c
 1   VP  ViClausal  Sbar #sentence d
-1   VP  Vt NP #transitive verbs accepts NP after them
-5   VP  Vt NP Sbar #transitive verbs accepts NP after them and sbar
-2   VP  Vp PP #sentence g
-3   NP  NP Cord NP  #sentence b
+1   VP  Vt NP #transitive verbs accepts NP after them, sentence d
+1   VP  VtDontAcceptClause NP #sentence i
+1   VP  VtAcceptAdjAsVerb Adj #sentence h
+1   VP  Vt NP Sbar #transitive verbs accepts NP after them and sbar, sentence d
+1   VP  Vp PP #sentence g
+1   NP  NP Cord NP  #sentence b
 1   NP  Pn #sentence a
 1	NP	Det Noun
-1	NP	NP PP
+4	NP	NP PP
 1	PP	Prep NP
 4	PP	Prep NP PP
 1	Noun	Adj Noun
-4   Sbar    Comp S #sentence d
+1   Sbar    Comp S #sentence d
 
 
 
@@ -83,16 +88,20 @@
 1   Vi  sighed #sentence c
 1   Vi  thought
 1   Vi  ate
+1   Vi worked
 
 
 
-10   ViClausal  thought #to enable statements like 'thought that...'
+10   ViClausal  thought #to enable statements like 'thought that...' - sentence d
 
 1   Vt  eat
 1   Vt  ate
 1   Vt  wanted
-1   Vt  perplexed
+1   Vt  perplexed #sentence e
 
+
+1   VtDontAcceptClause is
+1   VtAcceptAdjAsVerb   is
 
 1	Det	the
 1	Det	a
@@ -111,6 +120,7 @@
 1	Adj	perplexed
 1	Adj	pickled
 2   Adj Nom Adj
+1   Adj lazy
 
 1	Prep	with
 2	Prep	on
@@ -127,10 +137,13 @@
 
 1   Nom very #sentence f
 
-1   Is  is #sentence i
+1   PPCoeffiecient  is #sentence i
 
-1   Transitiveppv   eating #sentence h
-4   Transitiveppv   Transitiveppv Cord Transitiveppv #sentence h (to allow the sentence, for example: is eating and kissing and dancing)
+4   IntransitivePP eating
+1   IntransitivePP   IntransitivePP Cord IntransitivePP #sentence h
+
+4   Transitiveppv   eating #sentence h
+1   Transitiveppv   Transitiveppv Cord Transitiveppv #sentence h (to allow the sentence, for example: is eating and kissing and dancing)
 
 #1   It  it #sentence e
 #10   S   Pn Verb NP Sbar
@@ -140,3 +153,4 @@
 #1   Vt  thought #sentence d
 #1   VP  Vtn NP  #to allow without Sbar afer that
 #10   VP  Vtn NP  Sbar#to allow without Sbar afer that
+#3   S   NP Is Adj #sentence i
