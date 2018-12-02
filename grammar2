@@ -41,24 +41,20 @@
 #    Vp = verbs that are followed by a PP
 #    Is = is
 #    Transitiveppv = transitive verbs in present prograssive tense
-#    Vtn = transitive verbs that get NP after them (unlike 'thought')
+#    ViClausal = Intransitive verbs verbs that get a clausal statement after them (like 'thought' but not 'sighed')
 
 2	S	NP VP
 1   S   S Cord S #sentence b
 3   S   NP Is Adj #sentence i
 1   S   NP Is Transitiveppv NP #sentence h
-#10   S   Pn Verb NP Sbar
-#4   S   It Verb Sbar
-#2   S   NP Is Verb #sentence h #not sure it grammatical
 1   VP  VP Cord VP #sentence b
 1	VP	Verb NP
 1   VP  Vi #sentence c
-1   VP  Vt Sbar #sentence d
-1   VP  Vtn NP  #to allow without Sbar afer that
-10   VP  Vtn NP  Sbar#to allow without Sbar afer that
+1   VP  ViClausal  Sbar #sentence d
+1   VP  Vt NP #transitive verbs accepts NP after them
+5   VP  Vt NP Sbar #transitive verbs accepts NP after them and sbar
 2   VP  Vp PP #sentence g
-#2   VP  Transitiveppv
-10   NP  NP Cord NP  #sentence b
+3   NP  NP Cord NP  #sentence b
 1   NP  Pn #sentence a
 1	NP	Det Noun
 1	NP	NP PP
@@ -85,12 +81,17 @@
 2   Vp    worked #sentence g
 
 1   Vi  sighed #sentence c
+1   Vi  thought
+1   Vi  ate
 
-1   Vt  thought #sentence d
-1   Vtn  eat
-1   Vtn  ate
-1   Vtn  wanted
-1   Vtn  perplexed
+
+
+10   ViClausal  thought #to enable statements like 'thought that...'
+
+1   Vt  eat
+1   Vt  ate
+1   Vt  wanted
+1   Vt  perplexed
 
 
 1	Det	the
@@ -132,3 +133,10 @@
 4   Transitiveppv   Transitiveppv Cord Transitiveppv #sentence h (to allow the sentence, for example: is eating and kissing and dancing)
 
 #1   It  it #sentence e
+#10   S   Pn Verb NP Sbar
+#4   S   It Verb Sbar
+#2   S   NP Is Verb #sentence h #not sure it grammatical
+#2   VP  Transitiveppv
+#1   Vt  thought #sentence d
+#1   VP  Vtn NP  #to allow without Sbar afer that
+#10   VP  Vtn NP  Sbar#to allow without Sbar afer that
