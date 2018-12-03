@@ -25,26 +25,57 @@
 
 # The basic grammar rules.  Here's what the abbreviations stand for:
 #    S  = sentence
-#    NP = noun phrase
-#    VP = verb phrase
+#    NP = noun phrase (can be singular or plural)
+#    VP = verb phrase - past tense
 #    PP = prepositional phrase
-#    Det = determiner (sometimes called "article")
+#    DetPlural = determiner (sometimes called "article")for plural nouns
+#    DetSingular = determiner (sometimes called "article") for singular nouns
 #    Prep = preposition
 #    Adj = adjective
 #    Pn = proper nouns (that don't need articles/determiners before them)
 #    Cord = Coordinator, words like: and, or
-#    Vi = Intransitive verbs, verbs that don't take an argument (at least not obligatory) (like sighed, laugh)
+#    Vi = Intransitive verbs, verbs that don't take an argument (at least not obligatory) (like sighed, laugh) (past tense)
 #    Comp = complementizer, for the word 'that'
 #    Sbar = Subordinate clause
-#    Vt = Transitive verb
+#    Vt = Transitive verb (past tense)
 #    Nom = nominalization (for example very)
-#    Vp = verbs that are followed by a PP
+#    Vp = verbs that are followed by a PP (past tense)
 #    VtDontAcceptClause = transitive verbs that don't accept clause
 #    PPCoeffiecient = present progressive coefficients
 #    Transitiveppv = transitive verbs in present prograssive tense
 #    IntransitivePP = intransitive verbs in present prograssive tense
 #    ViClausal = Intransitive verbs verbs that get a clausal statement after them (like 'thought' but not 'sighed')
 #    VtAcceptAdjAsVerb = Transitive verbs that accepts an adjective (for example: sally is lazy)
+
+
+#   NPPlural
+#   NPSingular
+#   OtherHV
+#   SingularHV
+#   VPBase - verbs that are followed by a PP (basic verb)
+#   VPpp - verbs that are followed by a PP (verbs with ing for present progressive)
+#   VPp - verbs that are followed by a PP (verbs with S for present simple, singular)
+#   ViBase - Intransitive verbs, verbs that don't take an argument (at least not obligatory) (like sighed, laugh) (basic verb)
+#   ViP - Intransitive verbs, verbs that don't take an argument (at least not obligatory) (like sighed, laugh) (verbs with S for present simple, singular)
+#   ViPP - Intransitive verbs, verbs that don't take an argument (at least not obligatory) (like sighed, laugh) (verbs with ing for present progressive)
+#   ViClausalP - Intransitive verbs verbs that get a clausal statement after them (like 'thought' but not 'sighed')(verbs with S for present simple, singular)
+#   ViClausalPP - Intransitive verbs verbs that get a clausal statement after them (like 'thought' but not 'sighed')(verbs with ing for present progressive)
+#   ViClausalBase - Intransitive verbs verbs that get a clausal statement after them (like 'thought' but not 'sighed') (basic verb)
+#   VtP - Transitive verb (verbs with S for present simple, singular)
+#   VtPP - Transitive verb  (verbs with ing for present progressive)
+#   VtPBase - Transitive verb (basic verb)
+#   Q - for yes\no question
+#   WH-word - for resular wh question
+#   WH-wordSub - wh question on a subject
+#   OppositeOrderV - opposite order of the subject and the "help" verb (e.g do, does, will...)
+#   OppositeOrderVing -opposite order of the subject and the "help" verb ( for progressive tense)
+#   GoAdj - the option to add several adj.
+#   MoreAdj - and + adj.
+#   VPhSingular - for sentences with subject who is singulr
+#   VPhPlural - for sentences with subject who is plural
+#   SingularNoun - noun as singular
+#   PluralNoun - noun as plural
+
 
 2	S	NPPlural VP
 2	S	NPSingular VP
@@ -93,36 +124,37 @@
 1   VPp  VpP PP #sentence g
 1   VPpp  VpPP PP #sentence g
 1   VPBase  VpBase PP #sentence g
-1   NPPlural  NPSingular Cord NPSingular  #sentence b
-1   NPPlural  NPSingular Cord NPPlural  #sentence b
-1   NPPlural  NPPlural Cord NPSingular  #sentence b
-1   NPPlural  NPPlural Cord NPPlural  #sentence b
+1   NPPlural  NP Cord NP  #sentence b
+
+1   NP  NPPlural
+1   NP  NPSingular
 
 1   NPSingular  Pn #sentence a
 5	NPPlural	DetPlural PluralNoun
 5	NPSingular	DetSingular SingularNoun
 4	NPSingular	NPSingular PP
 4	NPPlural	NPPlural PP
-1	PP	Prep NPSingular
-1	PP	Prep NPPlural
-4	PP	Prep NPSingular PP
-4	PP	Prep NPPlural PP
-10	SingularNoun    Adj SingularNoun
-10	SingularNoun    Adj PluralNoun
-10	PluralNoun    Adj SingularNoun
-10	PluralNoun    Adj PluralNoun
+1	PP	Prep NP
+4	PP	Prep NP PP
+10	NP    Adj NP
 1   Sbar    Comp S #sentence d
 
 #part 3 - b & d
 
-1   ROOT    Q ?
-1   ROOT    WH ?
+1   ROOT    Q ? # start yes\no question
+1   ROOT    WH ? # strt WH question
 
 1   WH  WH-word Q
+#refer to Wh question on the subject, so the question asked on singular noun.
+1   WH  WH-wordSub VPp
+1   WH  WH-wordSub SingularHV VPpp
+1   WH  WH-wordSub VP
 
-1   Q   OppositeOrderV VPB
-1   Q   OppositeOrderVing VPBing
-1   Q   OppositeOrderVing GoAdj
+#question with verbs
+1   Q   OppositeOrderV VPBase
+1   Q   OppositeOrderVing VPpp
+#question without verbs - so there is the "be" verb.
+#1   Q   OppositeOrderVing GoAdj# this is an option to add several adj. with "and" between them, we waren't sure if it needed.
 1   Q   OppositeOrderVing Adj
 
 2   OppositeOrderVing    SingularHV NPSingular
@@ -131,18 +163,8 @@
 2   OppositeOrderV    SingularHVerb NPSingular
 2   OppositeOrderV    OtherHVerb NPPlural
 
-
-1	VPB	VerbBase SingularNoun
-1	VPB	VerbBase PluralNoun
-1	VPB	VerbBase PP
-
-#1	VPBing	VerbSnobPP SingularNoun#TODO
-#1	VPBing	VerbSnobPP PluralNoun#TODO
-#1	VPBing	VerbSnobPP PP#TODO
-
-1   GoAdj   Adj MoreAdj
-1   MoreAdj   and Adj
-
+#1   GoAdj   Adj MoreAdj
+#1   MoreAdj   and Adj
 
 # Vocabulary.  Your program can see that "ate" is a terminal
 # symbol because there exists no rule for rewriting it.
@@ -168,7 +190,7 @@
 1   ViPP  sighing #sentence c
 1   ViPP  thinking
 1   ViPP  eating
-1   ViPP workung
+1   ViPP working
 
 1   ViBase  sigh #sentence c
 1   ViBase  think
@@ -196,15 +218,10 @@
 1   VtBase  want
 1   VtBase  perplex #sentence e
 
-1   VtDontAcceptClause is#todo
-1   VtAcceptAdjAsVerb   is#todo
-
-
 1	DetSingular	the
 1	DetSingular	a
 1	DetSingular	every
 1	DetPlural	the
-
 
 5	SingularNoun	president
 2	SingularNoun	sandwich
@@ -254,7 +271,7 @@
 4   Transitiveppv   eating #sentence h
 1   Transitiveppv   Transitiveppv Cord Transitiveppv #sentence h (to allow the sentence, for example: is eating and kissing and dancing)
 
-#part 3 - b & d
+#part 4 - b & d
 1   OtherHVerb do
 1   OtherHVerb did
 1   OtherHVerb will
@@ -265,6 +282,8 @@
 1   SingularHV was
 1   OtherHV are
 1   OtherHV were
+1   SingularHV will
+1   OtherHV will
 
 1   WH-wordSub Who
 1   WH-wordSub What
