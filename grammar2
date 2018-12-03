@@ -57,6 +57,7 @@
 1   VP  Vt NP #transitive verbs accepts NP after them, sentence d
 1   VP  VtDontAcceptClause NP #sentence i
 1   VP  VtAcceptAdjAsVerb Adj #sentence h
+1   VP  VtAcceptAdjAsVerb NP #sentence i
 1   VP  Vt NP Sbar #transitive verbs accepts NP after them and sbar, sentence d
 1   VP  Vp PP #sentence g
 1   NP  NP Cord NP  #sentence b
