@@ -45,8 +45,11 @@
 #    IntransitivePP = intransitive verbs in present prograssive tense
 #    ViClausal = Intransitive verbs verbs that get a clausal statement after them (like 'thought' but not 'sighed')
 #    VtAcceptAdjAsVerb = Transitive verbs that accepts an adjective (for example: sally is lazy)
+#    VPP = verb phrase in present progressive
 
-2	S	NP VP
+1	S	NP VP
+2   S   NP VPP
+2   S   NP PPCoeffiecient VPP
 1   S   S Cord S #sentence b
 1   S   NP PPCoeffiecient Transitiveppv NP #sentence i
 1   S   NP PPCoeffiecient IntransitivePP #sentence i
@@ -55,9 +58,9 @@
 1   VP  Vi #sentence c
 1   VP  ViClausal  Sbar #sentence d
 1   VP  Vt NP #transitive verbs accepts NP after them, sentence d
-1   VP  VtDontAcceptClause NP #sentence i
-1   VP  VtAcceptAdjAsVerb Adj #sentence h
-1   VP  VtAcceptAdjAsVerb NP #sentence i
+1   VPP  NP #sentence i
+1   VPP  Adj #sentence h
+1   VPP  NP #sentence i
 1   VP  Vt NP Sbar #transitive verbs accepts NP after them and sbar, sentence d
 1   VP  Vp PP #sentence g
 1   NP  NP Cord NP  #sentence b
@@ -100,9 +103,6 @@
 1   Vt  wanted
 1   Vt  perplexed #sentence e
 
-
-1   VtDontAcceptClause is
-1   VtAcceptAdjAsVerb   is
 
 1	Det	the
 1	Det	a
@@ -155,3 +155,7 @@
 #1   VP  Vtn NP  #to allow without Sbar afer that
 #10   VP  Vtn NP  Sbar#to allow without Sbar afer that
 #3   S   NP Is Adj #sentence i
+
+
+#1   VtDontAcceptClause is
+#1   VtAcceptAdjAsVerb   is

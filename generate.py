@@ -1,6 +1,6 @@
 from collections import defaultdict
 import random
-
+import sys
 class PCFG(object):
     def __init__(self):
         self._rules = defaultdict(list)
@@ -62,9 +62,7 @@ class PCFG(object):
         return r
 
 
-if __name__ == '__main__':
-
-    import sys
+def runMain():
     pcfg = PCFG.from_file(sys.argv[1])
     num_of_sentences = 1
     print_tree = False
@@ -81,12 +79,14 @@ if __name__ == '__main__':
     if len(sys.argv) == 5:
         if sys.argv[4] == '-t':
             print_tree = True
-    if print_tree:
-        f_out = open("part3.gen", 'w')
+    f_out_part2 = open("grammar2_2.gen", 'w')
+    #if print_tree:
+        #f_out = open("part3.gen", 'w')
     for i in range(0, num_of_sentences):
         result = pcfg.random_sent(print_tree)
         print result
-        f_out.write(result + '\n')
+        f_out_part2.write(result+'\n')
+        #f_out.write(result + '\n')
         if print_tree:
             original_sentence = ""
             sentence = result.replace("(", "")
@@ -96,3 +96,13 @@ if __name__ == '__main__':
                 if pcfg.is_terminal(symbol):
                     original_sentence += symbol + " "
             print "original sentence is:\n" + original_sentence
+
+
+if __name__ == '__main__':
+    stop = False
+    while(not stop):
+        try:
+            runMain()
+            stop = True
+        except RuntimeError:
+            continue
