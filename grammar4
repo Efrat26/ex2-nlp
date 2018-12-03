@@ -1,0 +1,285 @@
+# Symbols in the grammar are case-sensitive.
+#
+# This grammar uses a convention that
+#    - terminals are lowercase          (president)
+#    - preterminals are capitalized     (Noun)
+#    - other nonterminals are all-caps  (NP)
+#
+# This convention just makes grammars more readable to humans.  Thus:
+#
+#    - When *you* are writing grammars, you should
+#      follow this convention unless you have a good reason not to.
+#
+#    - But the  *program* should still work with grammars that don't
+#      follow this convention.  So how can the program reliably tell
+#      the difference between terminal and nonterminal symbols?  If
+#      there is at least one rule for rewriting a symbol, then that
+#      symbol is a nonterminal and should be rewritten.
+#######################
+
+# Rules for creating full sentences.
+
+5	ROOT	S .
+1	ROOT	S !
+1	ROOT	is it true that S ?     # mixing terminals and nonterminals is ok.
+
+# The basic grammar rules.  Here's what the abbreviations stand for:
+#    S  = sentence
+#    NP = noun phrase
+#    VP = verb phrase
+#    PP = prepositional phrase
+#    Det = determiner (sometimes called "article")
+#    Prep = preposition
+#    Adj = adjective
+#    Pn = proper nouns (that don't need articles/determiners before them)
+#    Cord = Coordinator, words like: and, or
+#    Vi = Intransitive verbs, verbs that don't take an argument (at least not obligatory) (like sighed, laugh)
+#    Comp = complementizer, for the word 'that'
+#    Sbar = Subordinate clause
+#    Vt = Transitive verb
+#    Nom = nominalization (for example very)
+#    Vp = verbs that are followed by a PP
+#    VtDontAcceptClause = transitive verbs that don't accept clause
+#    PPCoeffiecient = present progressive coefficients
+#    Transitiveppv = transitive verbs in present prograssive tense
+#    IntransitivePP = intransitive verbs in present prograssive tense
+#    ViClausal = Intransitive verbs verbs that get a clausal statement after them (like 'thought' but not 'sighed')
+#    VtAcceptAdjAsVerb = Transitive verbs that accepts an adjective (for example: sally is lazy)
+
+2	S	NPPlural VP
+2	S	NPSingular VP
+2	S	NPPlural VPBase
+2	S	NPSingular SingularHV VPpp
+2	S	NPPlural OtherHV VPpp
+2	S	NPSingular VPhSingular
+2	S	NPPlural VPhPlural
+2	S	NPSingular VPp
+1   S   S Cord S #sentence b
+#1   S   NP SingularHV Transitiveppv NP #sentence i
+#1   S   NP SingularHV IntransitivePP #sentence i
+1   VP  VP Cord VP #sentence b
+1	VP	Verb NP
+1   VP  Vi #sentence c
+1   VPp  ViP #sentence c
+1   VPpp  ViPP #sentence c
+1   VPBase  ViBase #sentence c
+1   VP  ViClausal  Sbar #sentence d
+1   VPp  ViClausalP  Sbar #sentence d
+1   VPpp  ViClausalPP  Sbar #sentence d
+1   VPBase  ViClausalBase  Sbar #sentence d
+1   VP  Vt NPPlural #transitive verbs accepts NP after them, sentence d
+1   VP  Vt NPSingular #transitive verbs accepts NP after them, sentence d
+1   VPp  VtP NPPlural #transitive verbs accepts NP after them, sentence d
+1   VPp  VtP NPSingular #transitive verbs accepts NP after them, sentence d
+1   VPpp  VtPP NPSingular #transitive verbs accepts NP after them, sentence d
+1   VPBase  VtBase NPPlural #transitive verbs accepts NP after them, sentence d
+1   VPpp  VtPP NPPlural #transitive verbs accepts NP after them, sentence d
+1   VPBase  VtBase NPSingular #transitive verbs accepts NP after them, sentence d
+1   VPhSingular  SingularHV NPPlural #sentence i
+1   VPhPlural  OtherHV NPPlural #sentence i
+1   VPhSingular  SingularHV NPSingular #sentence i
+1   VPhPlural  OtherHV NPSingular #sentence i
+1   VPhSingular  SingularHV Adj #sentence h
+1   VPhPlural  OtherHV Adj #sentence h
+1   VP  Vt NPPlural Sbar #transitive verbs accepts NP after them and sbar, sentence d
+1   VP  Vt NPSingular Sbar #transitive verbs accepts NP after them and sbar, sentence d
+1   VPp  VtP NPPlural Sbar#transitive verbs accepts NP after them, sentence d
+1   VPp  VtP NPSingular Sbar#transitive verbs accepts NP after them, sentence d
+1   VPpp  VtPP NPSingular Sbar#transitive verbs accepts NP after them, sentence d
+1   VPBase  VtBase NPPlural Sbar#transitive verbs accepts NP after them, sentence d
+1   VPpp  VtPP NPPlural Sbar#transitive verbs accepts NP after them, sentence d
+1   VPBase  VtBase NPSingular Sbar#transitive verbs accepts NP after them, sentence d
+1   VP  Vp PP #sentence g
+1   VPp  VpP PP #sentence g
+1   VPpp  VpPP PP #sentence g
+1   VPBase  VpBase PP #sentence g
+1   NPPlural  NPSingular Cord NPSingular  #sentence b
+1   NPPlural  NPSingular Cord NPPlural  #sentence b
+1   NPPlural  NPPlural Cord NPSingular  #sentence b
+1   NPPlural  NPPlural Cord NPPlural  #sentence b
+
+1   NPSingular  Pn #sentence a
+5	NPPlural	DetPlural PluralNoun
+5	NPSingular	DetSingular SingularNoun
+4	NPSingular	NPSingular PP
+4	NPPlural	NPPlural PP
+1	PP	Prep NPSingular
+1	PP	Prep NPPlural
+4	PP	Prep NPSingular PP
+4	PP	Prep NPPlural PP
+10	SingularNoun    Adj SingularNoun
+10	SingularNoun    Adj PluralNoun
+10	PluralNoun    Adj SingularNoun
+10	PluralNoun    Adj PluralNoun
+1   Sbar    Comp S #sentence d
+
+#part 3 - b & d
+
+1   ROOT    Q ?
+1   ROOT    WH ?
+
+1   WH  WH-word Q
+
+1   Q   OppositeOrderV VPB
+1   Q   OppositeOrderVing VPBing
+1   Q   OppositeOrderVing GoAdj
+1   Q   OppositeOrderVing Adj
+
+2   OppositeOrderVing    SingularHV NPSingular
+2   OppositeOrderVing    OtherHV NPPlural
+
+2   OppositeOrderV    SingularHVerb NPSingular
+2   OppositeOrderV    OtherHVerb NPPlural
+
+
+1	VPB	VerbBase SingularNoun
+1	VPB	VerbBase PluralNoun
+1	VPB	VerbBase PP
+
+#1	VPBing	VerbSnobPP SingularNoun#TODO
+#1	VPBing	VerbSnobPP PluralNoun#TODO
+#1	VPBing	VerbSnobPP PP#TODO
+
+1   GoAdj   Adj MoreAdj
+1   MoreAdj   and Adj
+
+
+# Vocabulary.  Your program can see that "ate" is a terminal
+# symbol because there exists no rule for rewriting it.
+# Any symbol that can rewrite as a terminal (or a string of
+# terminals, like "chief of staff") is called a "preterminal."  Notice
+# that a preterminal is a special kind of nonterminal.
+
+2   Vp    worked #sentence g
+2   VpP    works #sentence g
+2   VpPP    working #sentence g
+2   VpBase    work #sentence g
+
+1   Vi  sighed #sentence c
+1   Vi  thought
+1   Vi  ate
+1   Vi worked
+
+1   ViP  sighs #sentence c
+1   ViP  thinks
+1   ViP  eats
+1   ViP works
+
+1   ViPP  sighing #sentence c
+1   ViPP  thinking
+1   ViPP  eating
+1   ViPP workung
+
+1   ViBase  sigh #sentence c
+1   ViBase  think
+1   ViBase  eat
+1   ViBase work
+
+10   ViClausal  thought #to enable statements like 'thought that...' - sentence d
+10   ViClausalP  thinks #to enable statements like 'thought that...' - sentence d
+10   ViClausalPP  thinking #to enable statements like 'thought that...' - sentence d
+10   ViClausalBase  think #to enable statements like 'thought that...' - sentence d
+
+1   Vt  ate
+1   Vt  wanted
+1   Vt  perplexed #sentence e
+
+1   VtP  eats
+1   VtP  wants
+1   VtP  perplexes #sentence e
+
+1   VtPP  eating
+1   VtPP  wanting
+1   VtPP  perplexing #sentence e
+
+1   VtBase  eat
+1   VtBase  want
+1   VtBase  perplex #sentence e
+
+1   VtDontAcceptClause is#todo
+1   VtAcceptAdjAsVerb   is#todo
+
+
+1	DetSingular	the
+1	DetSingular	a
+1	DetSingular	every
+1	DetPlural	the
+
+
+5	SingularNoun	president
+2	SingularNoun	sandwich
+1	SingularNoun	pickle
+3	SingularNoun	chief of staff
+1	SingularNoun	floor
+3   SingularNoun    teacher
+3   SingularNoun    dog
+2   SingularNoun    proposal #sentence g
+2   SingularNoun    desk #sentence g
+#
+5	PluralNoun	students
+2	PluralNoun	cats
+1	PluralNoun	picturs
+3	PluralNoun	walls
+1	PluralNoun	hospitals
+3   PluralNoun    grandparents
+3   PluralNoun    witches
+
+1	Adj	fine
+1	Adj	delicious
+1	Adj	perplexed
+1	Adj	pickled
+2   Adj Nom Adj
+1   Adj lazy
+
+1	Prep	with
+2	Prep	on
+1	Prep	under
+1	Prep	in
+
+1   Pn  Sally   #sentence a
+1   Pn  it  #sentence e
+
+1   Cord and #sentence b
+1   Cord or #sentence b
+
+1   Comp that #sentence d
+
+1   Nom very #sentence f
+
+1   PPCoeffiecient  is #sentence i
+
+4   IntransitivePP eating
+1   IntransitivePP   IntransitivePP Cord IntransitivePP #sentence h
+
+4   Transitiveppv   eating #sentence h
+1   Transitiveppv   Transitiveppv Cord Transitiveppv #sentence h (to allow the sentence, for example: is eating and kissing and dancing)
+
+#part 3 - b & d
+1   OtherHVerb do
+1   OtherHVerb did
+1   OtherHVerb will
+
+1   SingularHVerb does
+
+1   SingularHV is
+1   SingularHV was
+1   OtherHV are
+1   OtherHV were
+
+1   WH-wordSub Who
+1   WH-wordSub What
+
+1   WH-word Why
+1   WH-word What
+1   WH-word Where
+1   WH-word When
+
+#1   It  it #sentence e
+#10   S   Pn Verb NP Sbar
+#4   S   It Verb Sbar
+#2   S   NP Is Verb #sentence h #not sure it grammatical
+#2   VP  Transitiveppv
+#1   Vt  thought #sentence d
+#1   VP  Vtn NP  #to allow without Sbar afer that
+#10   VP  Vtn NP  Sbar#to allow without Sbar afer that
+#3   S   NP Is Adj #sentence i
