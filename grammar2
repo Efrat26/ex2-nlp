@@ -47,12 +47,12 @@
 #    VtAcceptAdjAsVerb = Transitive verbs that accepts an adjective (for example: sally is lazy)
 #    VPP = verb phrase in present progressive
 
-1	S	NP VP
+2	S	NP VP
 2   S   NP VPP
 2   S   NP PPCoeffiecient VPP
 1   S   S Cord S #sentence b
-1   S   NP PPCoeffiecient Transitiveppv NP #sentence i
-1   S   NP PPCoeffiecient IntransitivePP #sentence i
+2   S   NP PPCoeffiecient Transitiveppv NP #sentence i
+2   S   NP PPCoeffiecient IntransitivePP #sentence i
 1   VP  VP Cord VP #sentence b
 1	VP	Verb NP
 1   VP  Vi #sentence c
@@ -65,10 +65,10 @@
 1   VP  Vp PP #sentence g
 1   NP  NP Cord NP  #sentence b
 1   NP  Pn #sentence a
-1	NP	Det Noun
-4	NP	NP PP
-1	PP	Prep NP
-4	PP	Prep NP PP
+3	NP	Det Noun
+1	NP	NP PP
+2	PP	Prep NP
+1	PP	Prep NP PP
 1	Noun	Adj Noun
 1   Sbar    Comp S #sentence d
 
@@ -116,12 +116,12 @@
 2   Noun    proposal #sentence g
 2   Noun    desk #sentence g
 
-1	Adj	fine
-1	Adj	delicious
-1	Adj	perplexed
-1	Adj	pickled
-2   Adj Nom Adj
-1   Adj lazy
+2	Adj	fine
+2	Adj	delicious
+2	Adj	perplexed
+2	Adj	pickled
+1   Adj Nom Adj
+2   Adj lazy
 
 1	Prep	with
 2	Prep	on
