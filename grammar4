@@ -20,9 +20,9 @@
 
 # Rules for creating full sentences.
 
-5	ROOT	S .
-1	ROOT	S !
-1	ROOT	is it true that S ?     # mixing terminals and nonterminals is ok.
+#5	ROOT	S .
+#1	ROOT	S !
+#1	ROOT	is it true that S ?     # mixing terminals and nonterminals is ok.
 
 # The basic grammar rules.  Here's what the abbreviations stand for:
 #    S  = sentence
@@ -137,26 +137,25 @@
 1	NPPlural	NPPlural PP
 1	PP	Prep NP
 1	PP	Prep NP PP
-10	Noun    Adj Noun
+10	SingularNoun    Adj SingularNoun
+10	PluralNoun    Adj PluralNoun
 1   Sbar    Comp S #sentence d
 
 #part 4 - b & d
 
-1   ROOT    Q ? # start yes\no question
+#1   ROOT    Q ? # start yes\no question
 1   ROOT    WH ? # strt WH question
 
 2   WH  WH-word Q
 #refer to Wh question on the subject, so the question asked on singular noun.
-2   WH  WH-wordSub VPp
-1   WH  WH-wordSub SingularHV VPpp
-2   WH  WH-wordSub VP
+#2   WH  WH-wordSub VPp
+#1   WH  WH-wordSub SingularHV VPpp
+#2   WH  WH-wordSub VP
 
 #question with verbs
 1   Q   OppositeOrderV VPBase
 1   Q   OppositeOrderVing VPpp
-#question without verbs - so there is the "be" verb.
-#1   Q   OppositeOrderVing GoAdj# this is an option to add several adj. with "and" between them, we waren't sure if it needed.
-1   Q   OppositeOrderVing Adj
+1   Q   OppositeOrderVing
 
 2   OppositeOrderVing    SingularHV NPSingular
 2   OppositeOrderVing    OtherHV NPPlural
