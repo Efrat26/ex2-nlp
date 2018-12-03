@@ -62,6 +62,45 @@ class PCFG(object):
         return r
 
 
+if __name__ == '__main__':
+    pcfg = PCFG.from_file(sys.argv[1])
+    num_of_sentences = 1
+    print_tree = False
+    if len(sys.argv) > 2:
+        if sys.argv[2] == '-n':
+            try:
+                temp = int(sys.argv[3])
+                num_of_sentences = temp
+            except ValueError:
+                num_of_sentences = 1
+
+        elif sys.argv[2] == '-t':
+            print_tree = True
+    if len(sys.argv) == 5:
+        if sys.argv[4] == '-t':
+            print_tree = True
+    for i in range(0, num_of_sentences):
+        print pcfg.random_sent(print_tree)
+
+
+
+'''
+
+    #f_out_part2 = open("grammar2_2.gen", 'w')
+    # if print_tree:
+    # f_out = open("part3.gen", 'w')
+ print result
+        #f_out_part2.write(result + '\n')
+        # f_out.write(result + '\n')
+        if print_tree:
+            original_sentence = ""
+            sentence = result.replace("(", "")
+            sentence = sentence.replace(")", "")
+            splitted_sentece = sentence.split(" ")
+            for symbol in splitted_sentece:
+                if pcfg.is_terminal(symbol):
+                    original_sentence += symbol + " "
+            print "original sentence is:\n" + original_sentence
 def runMain():
     pcfg = PCFG.from_file(sys.argv[1])
     num_of_sentences = 1
@@ -106,3 +145,4 @@ if __name__ == '__main__':
             stop = True
         except RuntimeError:
             continue
+'''''
