@@ -78,14 +78,14 @@
 #   PluralNoun - noun as plural
 
 
-2	S	NPPlural VP
-2	S	NPSingular VP
-2	S	NPPlural VPBase
-2	S	NPSingular SingularHV VPpp
-2	S	NPPlural OtherHV VPpp
-2	S	NPSingular VPhSingular
-2	S	NPPlural VPhPlural
-2	S	NPSingular VPp
+3	S	NPPlural VP
+3	S	NPSingular VP
+3	S	NPPlural VPBase
+1	S	NPSingular SingularHV VPpp
+1	S	NPPlural OtherHV VPpp
+1	S	NPSingular VPhSingular
+1	S	NPPlural VPhPlural
+1	S	NPSingular VPp
 1   S   S Cord S #sentence b
 #1   S   NP SingularHV Transitiveppv NP #sentence i
 #1   S   NP SingularHV IntransitivePP #sentence i
@@ -93,12 +93,12 @@
 #1	VP	Verb NP
 1   VP  Vi #sentence c
 1   VPp  ViP #sentence c
-1   VPpp  ViPP #sentence c
-1   VPBase  ViBase #sentence c
-1   VP  ViClausal  Sbar #sentence d
-1   VPp  ViClausalP  Sbar #sentence d
-1   VPpp  ViClausalPP  Sbar #sentence d
-1   VPBase  ViClausalBase  Sbar #sentence d
+3   VPpp  ViPP #sentence c
+3   VPBase  ViBase #sentence c
+3   VP  ViClausal  Sbar #sentence d
+3   VPp  ViClausalP  Sbar #sentence d
+3   VPpp  ViClausalPP  Sbar #sentence d
+3   VPBase  ViClausalBase  Sbar #sentence d
 1   VP  Vt NPPlural #transitive verbs accepts NP after them, sentence d
 1   VP  Vt NPSingular #transitive verbs accepts NP after them, sentence d
 1   VPp  VtP NPPlural #transitive verbs accepts NP after them, sentence d
@@ -127,29 +127,29 @@
 1   VPBase  VpBase PP #sentence g
 1   NPPlural  NP Cord NP  #sentence b
 
-1   NP  NPPlural
-1   NP  NPSingular
+2   NP  NPPlural
+2   NP  NPSingular
 
 1   NPSingular  Pn #sentence a
 5	NPPlural	DetPlural PluralNoun
 5	NPSingular	DetSingular SingularNoun
-4	NPSingular	NPSingular PP
-4	NPPlural	NPPlural PP
+1	NPSingular	NPSingular PP
+1	NPPlural	NPPlural PP
 1	PP	Prep NP
-4	PP	Prep NP PP
+1	PP	Prep NP PP
 10	Noun    Adj Noun
 1   Sbar    Comp S #sentence d
 
-#part 3 - b & d
+#part 4 - b & d
 
 1   ROOT    Q ? # start yes\no question
 1   ROOT    WH ? # strt WH question
 
-1   WH  WH-word Q
+2   WH  WH-word Q
 #refer to Wh question on the subject, so the question asked on singular noun.
-1   WH  WH-wordSub VPp
+2   WH  WH-wordSub VPp
 1   WH  WH-wordSub SingularHV VPpp
-1   WH  WH-wordSub VP
+2   WH  WH-wordSub VP
 
 #question with verbs
 1   Q   OppositeOrderV VPBase
@@ -173,10 +173,10 @@
 # terminals, like "chief of staff") is called a "preterminal."  Notice
 # that a preterminal is a special kind of nonterminal.
 
-2   Vp    worked #sentence g
-2   VpP    works #sentence g
-2   VpPP    working #sentence g
-2   VpBase    work #sentence g
+1   Vp    worked #sentence g
+1   VpP    works #sentence g
+1   VpPP    working #sentence g
+1   VpBase    work #sentence g
 
 1   Vi  sighed #sentence c
 1   Vi  thought
@@ -198,10 +198,10 @@
 1   ViBase  eat
 1   ViBase work
 
-10   ViClausal  thought #to enable statements like 'thought that...' - sentence d
-10   ViClausalP  thinks #to enable statements like 'thought that...' - sentence d
-10   ViClausalPP  thinking #to enable statements like 'thought that...' - sentence d
-10   ViClausalBase  think #to enable statements like 'thought that...' - sentence d
+1   ViClausal  thought #to enable statements like 'thought that...' - sentence d
+1   ViClausalP  thinks #to enable statements like 'thought that...' - sentence d
+1   ViClausalPP  thinking #to enable statements like 'thought that...' - sentence d
+1   ViClausalBase  think #to enable statements like 'thought that...' - sentence d
 
 1   Vt  ate
 1   Vt  wanted
@@ -219,10 +219,10 @@
 1   VtBase  want
 1   VtBase  perplex #sentence e
 
-1	DetSingular	the
-1	DetSingular	a
+4	DetSingular	the
+3	DetSingular	a
 1	DetSingular	every
-1	DetPlural	the
+4	DetPlural	the
 
 5	SingularNoun	president
 2	SingularNoun	sandwich
@@ -242,12 +242,12 @@
 3   PluralNoun    grandparents
 3   PluralNoun    witches
 
-1	Adj	fine
-1	Adj	delicious
-1	Adj	perplexed
-1	Adj	pickled
-2   Adj Nom Adj
-1   Adj lazy
+2	Adj	fine
+2	Adj	delicious
+2	Adj	perplexed
+2	Adj	pickled
+1   Adj Nom Adj
+2   Adj lazy
 
 1	Prep	with
 2	Prep	on
